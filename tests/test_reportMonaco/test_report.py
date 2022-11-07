@@ -47,6 +47,13 @@ class TestPrintToHTML:
             assert result == file.read()
 
 
+class TestGetDrivers:
+
+    def test_get_drivers(self, tmp_path_with_files):
+        result_of_function = report.get_drivers(path_to_folder_with_data=tmp_path_with_files)
+        assert result_of_function == [[1, 'Sebastian Vettel', 'SVF'], [2, 'Lewis Hamilton', 'LHM']]
+
+
 class TestBuildReport:
 
     def test_with_atypical_argument(self):
@@ -101,6 +108,7 @@ class TestPrintReport:
         path_to_results = (pathlib.Path(__file__).parent / 'results_for_assert/test_print_to_html_reverse.txt')
         with open(path_to_results, 'r') as file:
             assert result == file.read()
+
 
 class TestMain:
 
