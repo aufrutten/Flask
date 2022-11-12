@@ -4,9 +4,10 @@ from reportMonaco import report
 
 
 def create_app():
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__)
     app.config.from_mapping(
-        SECRET_KEY='dev'
+        SECRET_KEY='dev',
+        instance_relative_config=True,
     )
     return app
 
@@ -36,14 +37,10 @@ def drivers():
     if abbr:
         for _, driver, abbr_of_driver in list_of_drivers:
             if abbr == abbr_of_driver:
-                name, car, result = report.find_driver(driver, path_to_folder)[0]
-                content = f'{name}   {car}   {result}'
-                return render_template('drivers.html', content=content)
+                content = report.find_driver(driver, path_to_folder)[0]
+                return render_template('drivers.html', driver=content)
     else:
-        content = '<br><br>'.join(
-            [f'{values[0]} {values[1]} <a href="/report/drivers/?driver={values[2]}">{values[2]}</a>'for values in data]
-        )
-        return render_template('drivers.html', content=content)
+        return render_template('drivers.html', drivers=data)
 
 
 if __name__ == '__main__':  # pragma: no cover

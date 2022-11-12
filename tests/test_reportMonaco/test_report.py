@@ -28,8 +28,9 @@ class TestFindDriver:
 class TestPrintToConsole:
 
     def test_print_function(self):
-        test_list = [['Aufrutten Ihor', 'AUDI A5', '0:01:03.321'],
-                     ['Ihor Aufrutten', 'AUDI A6 ALL ROAD', '0:01:03:132']]
+        test_list = [
+            ['Aufrutten Ihor', 'AUDI A5', '0:01:03.321'],
+            ['Ihor Aufrutten', 'AUDI A6 ALL ROAD', '0:01:03:132']]
         result = report.print_to_console(test_list)
         path_to_results = (pathlib.Path(__file__).parent / 'results_for_assert/print_report_print_console.txt')
         with open(path_to_results, 'r') as file:
@@ -89,25 +90,29 @@ class TestPrintReport:
         result = report.print_report(str(tmp_path_with_files))
         path_to_results = (pathlib.Path(__file__).parent / 'results_for_assert/print_report.txt')
         with open(path_to_results, 'r') as file:
-            assert result == file.read()
+            assert str(result) == file.read()
+            # file.write(str(result))
 
     def test_with_reverse_mode(self, tmp_path_with_files):
         result = report.print_report(str(tmp_path_with_files), reverse=True)
         path_to_results = (pathlib.Path(__file__).parent / 'results_for_assert/print_report_reverse.txt')
         with open(path_to_results, 'r') as file:
-            assert result == file.read()
+            assert str(result) == file.read()
+            # file.write(str(result))
 
     def test_print_to_html(self, tmp_path_with_files):
         result = report.print_report(str(tmp_path_with_files), html=True)
         path_to_results = (pathlib.Path(__file__).parent / 'results_for_assert/test_print_to_html.txt')
         with open(path_to_results, 'r') as file:
-            assert result == file.read()
+            assert str(result) == file.read()
+            # file.write(str(result))
 
     def test_print_to_html_reverse(self, tmp_path_with_files):
         result = report.print_report(str(tmp_path_with_files), reverse=True, html=True)
         path_to_results = (pathlib.Path(__file__).parent / 'results_for_assert/test_print_to_html_reverse.txt')
         with open(path_to_results, 'r') as file:
-            assert result == file.read()
+            assert str(result) == file.read()
+            # file.write(str(result))
 
 
 class TestMain:

@@ -1,12 +1,7 @@
 import pathlib
 
-if not __name__ == '__main__':
-    from . import parser_files
-    from . import parser_cli
-
-else:
-    import parser_cli  # pragma: no cover
-    import parser_files  # pragma: no cover
+from . import parser_files
+from . import parser_cli
 
 
 def print_to_console(list_to_print) -> str:
@@ -78,13 +73,13 @@ def print_report(path_to_folder_with_data, html=False, reverse=False, driver='')
     list_with_results = get_sorted_list_with_results(path_to_folder_with_data)
     if reverse is False:
         if html:
-            return print_to_html(list_with_results)
+            return list_with_results
         else:
             return print_to_console(list_with_results)
     else:
         list_with_results.reverse()
         if html:
-            return print_to_html(list_with_results)
+            return list_with_results
         else:
             return print_to_console(list_with_results)
 
