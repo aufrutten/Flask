@@ -21,26 +21,25 @@ app = create_app()
 def parent_route():
     reverse_mode = True if request.values.get('order') else False
     data = report.print_report(app.config.get('path_to_folder'), html=True, reverse=reverse_mode)
-    return render_template('index.html', content=data)
+    return render_template('index.html', content=enumerate(data))
 
 
 @app.route('/report/drivers/')
 def drivers():
-    data = report.get_drivers(app.config.get('path_to_folder'))
+    list_with_results = report.get_drivers(app.config.get('path_to_folder'))
+    data = report.build_report(app.config.get('path_to_folder'))[0]
+
     abbr = request.values.get('driver')
     reverse_mode = True if request.values.get('order') else False
-    list_of_drivers = report.get_drivers(app.config.get('path_to_folder'))
 
     if reverse_mode:
-        data.reverse()
+        list_with_results.reverse()
 
     if abbr:
-        for _, driver, abbr_of_driver in list_of_drivers:
-            if abbr == abbr_of_driver:
-                content = report.find_driver(driver, app.config.get('path_to_folder'))[0]
-                return render_template('drivers.html', driver=content)
+        content = report.find_driver(data[abbr]['name'], app.config.get('path_to_folder'))[0]
+        return render_template('drivers.html', driver=content)
     else:
-        return render_template('drivers.html', drivers=data)
+        return render_template('drivers.html', drivers=list_with_results)
 
 
 if __name__ == '__main__':  # pragma: no cover

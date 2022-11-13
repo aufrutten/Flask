@@ -13,11 +13,17 @@
 {% endif %}
 
 {% if drivers %}
+
+    <table>
     {% for num, name, abbr in drivers %}
-    <div class="drivers" id="{{abbr}}">
-        {{num}} {{name}} <a href='/report/drivers/?driver={{abbr}}'>{{abbr}}</a>
-    </div>
+    <tr>
+        <th>{{num}}</th>
+        <th>{{name}}</th>
+        <th><a href='/report/drivers/?driver={{abbr}}'>{{abbr}}</a></th>
+    </tr>
     {% endfor %}
+    </table>
+
 {% endif %}
 
 <br><br>
