@@ -1,5 +1,6 @@
 from flask import Flask
 from views import simple_page
+import pathlib
 
 
 def create_app():
@@ -8,6 +9,7 @@ def create_app():
         SECRET_KEY='dev',
         instance_relative_config=True
     )
+    app.config['path_to_folder'] = str(pathlib.PosixPath(__file__).parent / 'tests' / 'test_reportMonaco' / 'data')
     return app
 
 
